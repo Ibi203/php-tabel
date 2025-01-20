@@ -95,21 +95,21 @@ if (isset($_POST['logout'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin Dashboard</title>
+    <title> Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <meta http-equiv="refresh" content="30">
 </head>
 <body>
     <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Admin Dashboard</h2>
+            <h2> Dashboard</h2>
             <form method="POST" action="">
-                <button type="submit" name="logout" class="btn btn-danger">Logout</button>
+                <button type="submit" name="logout" class="btn btn-danger">Loguit</button>
             </form>
         </div>
         
         <div class="card mb-4">
-            <div class="card-header">Add New Table</div>
+            <div class="card-header">Voeg tafels toe z</div>
             <div class="card-body">
                 <?php if (isset($error)): ?>
                     <div class="alert alert-danger"><?php echo $error; ?></div>
@@ -131,7 +131,7 @@ if (isset($_POST['logout'])) {
         </div>
 
         <div class="card mb-4">
-            <div class="card-header">Add New Admin User</div>
+            <div class="card-header">Voeg nieuwe admin toe</div>
             <div class="card-body">
                 <?php if (isset($admin_error)): ?>
                     <div class="alert alert-danger"><?php echo $admin_error; ?></div>

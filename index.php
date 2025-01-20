@@ -45,12 +45,12 @@ $tables = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Make a Reservation</h2>
+            <h2>reserveer</h2>
             <a href="admin/login.php" class="btn btn-secondary">Admin Login</a>
         </div>
         
         <?php if (isset($_GET['success'])): ?>
-            <div class="alert alert-success">Reservation submitted successfully! We will confirm your reservation soon.</div>
+            <div class="alert alert-success">Reservatie opgestuurd.</div>
         <?php endif; ?>
 
         <?php if (isset($error)): ?>
@@ -59,7 +59,7 @@ $tables = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <form method="POST">
             <div class="mb-3">
-                <label>Name:</label>
+                <label>naam:</label>
                 <input type="text" name="customer_name" class="form-control" required>
             </div>
             <div class="mb-3">
@@ -67,7 +67,7 @@ $tables = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <input type="email" name="customer_email" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label>Phone:</label>
+                <label>Numer:</label>
                 <input type="tel" name="customer_phone" class="form-control" required>
             </div>
             <div class="mb-3">
@@ -75,7 +75,7 @@ $tables = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <input type="date" name="reservation_date" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label>Time:</label>
+                <label>tijd:</label>
                 <input type="time" name="reservation_time" class="form-control" required>
             </div>
             <div class="mb-3">
@@ -83,7 +83,7 @@ $tables = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <input type="number" name="party_size" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label>Table:</label>
+                <label>tafel:</label>
                 <select name="table_id" class="form-control" required>
                     <?php foreach($tables as $table): ?>
                         <option value="<?php echo $table['table_id']; ?>">
