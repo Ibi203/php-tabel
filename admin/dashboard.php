@@ -90,12 +90,28 @@ if (isset($_POST['logout'])) {
     header("Location: login.php");
     exit();
 }
+
+if (isset($_POST['delete_user'])) {
+    try {
+        $stmt = $conn->prepare("DELETE FROM users WHERE user_id = ? AND role != 'admin'");
+        $stmt->execute([$_POST['user_id']]);
+        header("Location: dashboard.php");
+        exit();
+    } catch(PDOException $e) {
+        $error = "Error deleting user: " . $e->getMessage();
+    }
+}
+
+$stmt = $conn->prepare("SELECT user_id, username, created_at FROM users WHERE role != 'admin' ORDER BY created_at DESC");
+$stmt->execute();
+$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title> Dashboard</title>
+    <title>Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <meta http-equiv="refresh" content="30">
 </head>
@@ -234,6 +250,36 @@ if (isset($_POST['logout'])) {
                     </tbody>
                 </table>
             </div>
+        </div>
+
+        <!-- Add new section for users -->
+        <div class="mt-4">
+            <h3>Registered Users</h3>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Registration Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($users as $user): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($user['user_id']); ?></td>
+                        <td><?php echo htmlspecialchars($user['username']); ?></td>
+                        <td><?php echo htmlspecialchars($user['created_at']); ?></td>
+                        <td>
+                            <form method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['user_id']); ?>">
+                                <button type="submit" name="delete_user" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
         </div>
     </div>
 </body>
